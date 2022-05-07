@@ -142,6 +142,7 @@ func (u *User) UpdateAUser(db *gorm.DB, uid uint32) (*User, error) {
 			"password":   u.Password,
 			"nickname":   u.Nickname,
 			"email":      u.Email,
+			"avatar_url": u.AvatarUrl,
 			"updated_at": time.Now(),
 		},
 	)
