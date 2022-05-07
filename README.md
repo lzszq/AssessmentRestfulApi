@@ -33,8 +33,24 @@ method: POST
 
 ```
 {
+    "nickname": "nickname",
     "email": "email",
-    "password": "password"
+    "password": "password",
+    "avatar_url": "avatar_url"
 }
 ```
 
+② 
+
+url: /users
+
+method: POST
+
+```
+{
+    "nickname": "nickname",
+    "email": "email",
+    "password": "password",
+    "avatar_url": "avatar_url"
+}
+```
