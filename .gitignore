@@ -1,3 +1,4 @@
 .vscode
 .env
 assessment.sqlite
+__debug_bin.exe
