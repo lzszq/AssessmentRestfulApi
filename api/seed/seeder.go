@@ -20,9 +20,10 @@ func Load(db *gorm.DB) {
 
 	var users = []models.User{
 		models.User{
-			Nickname: os.Getenv("InitNickname"),
-			Email:    os.Getenv("InitEmail"),
-			Password: os.Getenv("InitPassword"),
+			Nickname:  os.Getenv("InitNickname"),
+			Email:     os.Getenv("InitEmail"),
+			Password:  os.Getenv("InitPassword"),
+			AvatarUrl: os.Getenv("InitAvatarUrl"),
 		},
 	}
 

@@ -54,6 +54,7 @@ func (p *Post) SavePost(db *gorm.DB) (*Post, error) {
 			return &Post{}, err
 		}
 	}
+	p.Author.Password = ""
 	return p, nil
 }
 
@@ -72,6 +73,9 @@ func (p *Post) FindAllPosts(db *gorm.DB) (*[]Post, error) {
 			}
 		}
 	}
+	for i := range posts {
+		posts[i].Author.Password = ""
+	}
 	return &posts, nil
 }
 
@@ -87,6 +91,7 @@ func (p *Post) FindPostByID(db *gorm.DB, pid uint64) (*Post, error) {
 			return &Post{}, err
 		}
 	}
+	p.Author.Password = ""
 	return p, nil
 }
 
@@ -104,6 +109,7 @@ func (p *Post) UpdateAPost(db *gorm.DB) (*Post, error) {
 			return &Post{}, err
 		}
 	}
+	p.Author.Password = ""
 	return p, nil
 }
 

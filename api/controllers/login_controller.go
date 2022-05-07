@@ -12,6 +12,10 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+type Result struct {
+	Token string `json:"token"`
+}
+
 func (server *Server) Login(w http.ResponseWriter, r *http.Request) {
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
@@ -37,7 +41,10 @@ func (server *Server) Login(w http.ResponseWriter, r *http.Request) {
 		responses.ERROR(w, http.StatusUnprocessableEntity, formattedError)
 		return
 	}
-	responses.JSON(w, http.StatusOK, token)
+	result := Result{
+		Token: token,
+	}
+	responses.JSON(w, http.StatusOK, result)
 }
 
 func (server *Server) SignIn(email, password string) (string, error) {

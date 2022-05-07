@@ -8,6 +8,12 @@ import (
 	"github.com/lzszq/AssessmentRestfulApi/api/responses"
 )
 
+func SetMiddlewareImage(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		next(w, r)
+	}
+}
+
 func SetMiddlewareJSON(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")

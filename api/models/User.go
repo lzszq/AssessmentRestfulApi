@@ -17,6 +17,7 @@ type User struct {
 	Nickname  string    `gorm:"size:255;not null;unique" json:"nickname"`
 	Email     string    `gorm:"size:100;not null;unique" json:"email"`
 	Password  string    `gorm:"size:100;not null;" json:"password"`
+	AvatarUrl string    `gorm:"size:100;not null;" json:"avatar_url"`
 	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
 	UpdatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
 }
@@ -42,6 +43,7 @@ func (u *User) Prepare() {
 	u.ID = 0
 	u.Nickname = html.EscapeString(strings.TrimSpace(u.Nickname))
 	u.Email = html.EscapeString(strings.TrimSpace(u.Email))
+	u.AvatarUrl = ""
 	u.CreatedAt = time.Now()
 	u.UpdatedAt = time.Now()
 }
@@ -99,6 +101,7 @@ func (u *User) SaveUser(db *gorm.DB) (*User, error) {
 	if err != nil {
 		return &User{}, err
 	}
+	u.Password = ""
 	return u, nil
 }
 
@@ -108,6 +111,9 @@ func (u *User) FindAllUsers(db *gorm.DB) (*[]User, error) {
 	err = db.Debug().Model(&User{}).Limit(100).Find(&users).Error
 	if err != nil {
 		return &[]User{}, err
+	}
+	for i := range users {
+		users[i].Password = ""
 	}
 	return &users, err
 }
@@ -121,6 +127,7 @@ func (u *User) FindUserByID(db *gorm.DB, uid uint32) (*User, error) {
 	if gorm.IsRecordNotFoundError(err) {
 		return &User{}, errors.New("User Not Found")
 	}
+	u.Password = ""
 	return u, err
 }
 
@@ -147,6 +154,7 @@ func (u *User) UpdateAUser(db *gorm.DB, uid uint32) (*User, error) {
 	if err != nil {
 		return &User{}, err
 	}
+	u.Password = ""
 	return u, nil
 }
 
